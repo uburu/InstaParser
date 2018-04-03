@@ -1,2 +1,2 @@
 # InstaParser
-Parse Instagram without Instagram API
+Parse Instagram without Instagram API :octocat:
