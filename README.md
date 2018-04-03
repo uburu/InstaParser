@@ -1,2 +1,2 @@
 # InstaParser
-Parse Instagram without Instagram API :octocat:
+Little class to get all information about user's photos and photos src without Instagram API :octocat:
