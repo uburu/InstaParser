@@ -1,6 +1,7 @@
 import requests
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
+import json
 
 
 class InstagramParse:
@@ -20,7 +21,13 @@ class InstagramParse:
                 self._queryId = arr_js[1].split(",")[0].split('"')[1]
 
     def get_connection(self):
-        pass
+        '''Return data with all user information'''
+
+        arr = str(self._json).split("window._sharedData = ")
+        jsn = arr[1].split(";</script>")
+        user_data = json.loads(str(jsn[0]))
+
+        return user_data
 
 
     def get_first_twelve(self, user_array):
