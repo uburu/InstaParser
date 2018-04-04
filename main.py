@@ -12,8 +12,12 @@ class InstagramParse:
         soup = BeautifulSoup(html, 'html.parser')
         for i,elem in enumerate(soup.body):
             if ('ProfilePageContainer.js' in str(elem)):
-                self._ProfilePageContainer ="https://www.instagram.com" + str(elem).split("src")[1].split('"')[1]
-                print(self._ProfilePageContainer)
+                ProfilePageContainer ="https://www.instagram.com" + str(elem).split("src")[1].split('"')[1]
+                get_js = requests.get(ProfilePageContainer,
+                                      headers={'User-Agent': UserAgent().firefox})
+                content_js = get_js.content
+                arr_js = str(content_js).split('null!=(o=e.profilePosts.byUserId.get(t))?o.pagination:o},queryId:')
+                self._queryId = arr_js[1].split(",")[0].split('"')[1]
 
     def get_connection(self):
         pass
