@@ -11,7 +11,7 @@ class InstagramParse:
         html = response.content
         soup = BeautifulSoup(html, 'html.parser')
         for i,elem in enumerate(soup.body):
-            if (i == 11):
+            if ('ProfilePageContainer.js' in str(elem)):
                 self._ProfilePageContainer ="https://www.instagram.com" + str(elem).split("src")[1].split('"')[1]
                 print(self._ProfilePageContainer)
 
