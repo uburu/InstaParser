@@ -24,7 +24,7 @@ class InstagramParse:
     def get_connection(self):
         '''Return data with all user information'''
 
-        arr = str(self._json).split("window._sharedData = ")
+        arr = str(self._json.decode('utf-8')).split("window._sharedData = ")
         jsn = arr[1].split(";</script>")
         user_array = json.loads(str(jsn[0]))
 
@@ -37,14 +37,14 @@ class InstagramParse:
         user_array = self.get_connection()
         photos = user_array['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']['edges']
         if (len(photos) != 0):
+            photos = photos[:photo_num]
             for i, src in enumerate(photos):
-                if (i < photo_num):
-                    photo_link = src['node']['display_url']
-                    response = requests.get(photo_link, headers={'User-Agent': UserAgent().chrome})
-                    out = open(save_path + "img" + str(i) + ".jpg", "wb")
-                    out.write(response.content)
-                    out.close()
-                    time.sleep(5)
+                photo_link = src['node']['display_url']
+                response = requests.get(photo_link, headers={'User-Agent': UserAgent().chrome})
+                out = open(save_path + "img" + str(i) + ".jpg", "wb")
+                out.write(response.content)
+                out.close()
+                time.sleep(5)
 
 
 
@@ -77,3 +77,8 @@ class InstagramParse:
 
     def get_user_information(self, user_path):
         pass
+
+
+link = "https://www.instagram.com/minimalism/"
+parse = InstagramParse(link)
+parse.get_photos_from_user_page(40, "/home/ivan/uburu/data/t/")
