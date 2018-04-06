@@ -78,7 +78,3 @@ class InstagramParse:
     def get_user_information(self, user_path):
         pass
 
-
-link = "https://www.instagram.com/minimalism/"
-parse = InstagramParse(link)
-parse.get_photos_from_user_page(40, "/home/ivan/uburu/data/t/")
